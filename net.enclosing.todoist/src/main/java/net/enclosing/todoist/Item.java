@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class Item {
@@ -185,6 +184,13 @@ public class Item {
 	}
 	public boolean hasLabel(Integer labelid) {
 		return labels.contains(labelid);
+	}
+	public Collection<Note> getNotes(){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("item_id", this.getId());
+		Type stringType = new TypeToken<Collection<Note>>(){}.getType();
+		Collection<Note> notes = (Collection<Note>)Json.getObjects("getNotes", map , stringType);;
+		return notes;
 	}
 	public String add() {
 		try {

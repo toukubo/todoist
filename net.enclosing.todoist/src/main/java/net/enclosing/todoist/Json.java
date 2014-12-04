@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -45,6 +46,13 @@ public class Json {
 			return post(apimethod, paramString);
 		}
 	}
+	public static void updateNote(String content,String note_id)throws Exception{
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("content", URLEncoder.encode(content, "UTF-8"));
+		map.put("note_id", note_id);
+		post("updateNote", toParamString(map));
+	}
+
 	public static void addNote(String content,String item_id)throws Exception{
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("content", content);
