@@ -1,6 +1,7 @@
 package net.enclosing.todoist;
 
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,7 +21,14 @@ public class Item {
 	private boolean workflow = false;
 	private boolean taggedEnough = false;
 	private boolean nonDelegatable = false;
+	private String date_string = "";
 	
+	public String getDate_string() {
+		return date_string;
+	}
+	public void setDate_string(String date_string) {
+		this.date_string = date_string;
+	}
 	private List<Integer> labels = new ArrayList<Integer>();
 	private boolean dirty;
 	public String getContent() {
@@ -141,6 +149,23 @@ public class Item {
 			e.printStackTrace();
 		}
 
+	}	
+	public void updateDue()  {
+		try {
+			final String updateapimethod = "updateItem";
+			Map<String, String> updateLabelParams = new HashMap<String, String>();
+			updateLabelParams.put("id", getId());
+			updateLabelParams.put("date_string", URLEncoder.encode(getDate_string(), "UTF-8"));
+			Json.postItem(updateapimethod,updateLabelParams);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	private String getDateString() {
+		return "";
+//		return ;
 	}
 	private Integer labelsContains(List<Integer> list){
 		boolean flag = false;
